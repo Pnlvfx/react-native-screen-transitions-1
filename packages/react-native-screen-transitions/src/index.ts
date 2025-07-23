@@ -8,38 +8,43 @@ import { createConfig, createScreenConfig } from "./utils/create-config";
 import { defaultScreenOptions } from "./utils/default-screen-options";
 
 export default {
-  View: createTransitionAwareComponent(View),
-  Pressable: createTransitionAwareComponent(Pressable),
-  ScrollView: createTransitionAwareScrollable(ScrollView),
-  FlatList: createTransitionAwareScrollable(FlatList),
+	View: createTransitionAwareComponent(View),
+	Pressable: createTransitionAwareComponent(Pressable),
+	ScrollView: createTransitionAwareComponent(ScrollView, {
+		isScrollable: true,
+	}),
+	FlatList: createTransitionAwareComponent(FlatList, {
+		isScrollable: true,
+	}),
 
-  defaultScreenOptions,
-  presets,
-  specs,
-  /**
-   * Create a transition aware component
-   */
-  createTransitionAwareComponent,
-  /**
-   * Create a transition aware scrollable component
-   */
-  createTransitionAwareScrollable,
-  /**
-   * Create a transitionable native stack navigator.
-   *
-   */
-  createTransitionableStackNavigator,
-  /**
-   * @deprecated Use {@link createTransitionableStackNavigator} instead.
-   */
-  createConfig,
-  /**
-   * @deprecated Use {@link createTransitionableStackNavigator} instead.
-   */
-  createScreenConfig,
-  /**
-   * @deprecated Use {@link createTransitionableStackNavigator} instead.
-   */
+	defaultScreenOptions,
+	presets,
+	specs,
+	/**
+	 * Create a transition aware component
+	 */
+	createTransitionAwareComponent,
+	/**
+	 * Create a transition aware scrollable component
+	 * @deprecated Use {@link createTransitionAwareComponent} instead.
+	 */
+	createTransitionAwareScrollable,
+	/**
+	 * Create a transitionable native stack navigator.
+	 *
+	 */
+	createTransitionableStackNavigator,
+	/**
+	 * @deprecated Use {@link createTransitionableStackNavigator} instead.
+	 */
+	createConfig,
+	/**
+	 * @deprecated Use {@link createTransitionableStackNavigator} instead.
+	 */
+	createScreenConfig,
+	/**
+	 * @deprecated Use {@link createTransitionableStackNavigator} instead.
+	 */
 };
 export { useScreenAnimation };
 

@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
-import { Gesture, type GestureType } from "react-native-gesture-handler";
-import { type SharedValue, useSharedValue } from "react-native-reanimated";
+import type { GestureType } from "react-native-gesture-handler";
+import type { SharedValue } from "react-native-reanimated";
 
 export type ScrollProgress = {
 	x: number;
@@ -24,22 +24,11 @@ export const GestureContext = createContext<GestureContextType | undefined>(
 
 export const useGestureContext = () => {
 	const context = useContext(GestureContext);
-	const scrollProgressFallback = useSharedValue<ScrollProgress>({
-		x: 0,
-		y: 0,
-		contentHeight: 0,
-		contentWidth: 0,
-		layoutHeight: 0,
-		layoutWidth: 0,
-	});
 
 	if (!context) {
-		return {
-			panGesture: Gesture.Pan(),
-			nativeGesture: Gesture.Native(),
-			scrollProgress: scrollProgressFallback,
-			isPlaceholder: true,
-		};
+		throw new Error(
+			"useGestureContext must be used within a TransitionAwareWrapper",
+		);
 	}
 
 	return context;

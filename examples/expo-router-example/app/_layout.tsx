@@ -15,8 +15,7 @@ export default function RootLayout() {
 							backgroundColor: "white",
 						},
 						skipDefaultScreenOptions: true,
-						presentation: "card",
-						headerShown: true,
+						headerShown: false,
 					}}
 				/>
 				<Stack.Screen
