@@ -1,4 +1,5 @@
 import { FlatList, Pressable, ScrollView, View } from "react-native";
+import { Bounds } from "./components/bounds";
 import { createTransitionAwareComponent } from "./components/create-transition-aware-component";
 import { createTransitionAwareScrollable } from "./components/create-transition-aware-scrollable";
 import { presets, specs } from "./configs";
@@ -16,7 +17,7 @@ export default {
 	FlatList: createTransitionAwareComponent(FlatList, {
 		isScrollable: true,
 	}),
-
+	Bounds,
 	defaultScreenOptions,
 	presets,
 	specs,

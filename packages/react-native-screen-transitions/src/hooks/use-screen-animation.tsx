@@ -4,6 +4,7 @@ import { useSharedValue } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { animationValues } from "../animation-engine";
 import { ScreenStore } from "../store";
+import { BoundsStore } from "../store/animation-store";
 import type {
 	ScreenInterpolationProps,
 	ScreenStyleInterpolator,
@@ -49,24 +50,30 @@ const useAnimationBuilder = () => {
 		),
 	);
 
+	const bounds = BoundsStore.getAllBoundsForScreenShared(key);
+
 	const getAnimationValuesForScreen = useCallback(
-		(screenId: string) => ({
-			progress: animationValues.screenProgress[screenId] || progressFallback,
-			gesture: {
-				isDragging:
-					animationValues.gestureDragging[screenId] || gestureDraggingFallback,
-				x: animationValues.gestureX[screenId] || gestureXFallback,
-				y: animationValues.gestureY[screenId] || gestureYFallback,
-				normalizedX:
-					animationValues.normalizedGestureX[screenId] ||
-					normalizedGestureXFallback,
-				normalizedY:
-					animationValues.normalizedGestureY[screenId] ||
-					normalizedGestureYFallback,
-				isDismissing:
-					animationValues.isDismissing[screenId] || isDismissingFallback,
-			},
-		}),
+		(screenId: string) => {
+			return {
+				progress: animationValues.screenProgress[screenId] || progressFallback,
+				gesture: {
+					isDragging:
+						animationValues.gestureDragging[screenId] ||
+						gestureDraggingFallback,
+					x: animationValues.gestureX[screenId] || gestureXFallback,
+					y: animationValues.gestureY[screenId] || gestureYFallback,
+					normalizedX:
+						animationValues.normalizedGestureX[screenId] ||
+						normalizedGestureXFallback,
+					normalizedY:
+						animationValues.normalizedGestureY[screenId] ||
+						normalizedGestureYFallback,
+					isDismissing:
+						animationValues.isDismissing[screenId] || isDismissingFallback,
+				},
+				bounds,
+			};
+		},
 		[
 			progressFallback,
 			gestureDraggingFallback,
@@ -75,6 +82,7 @@ const useAnimationBuilder = () => {
 			normalizedGestureXFallback,
 			normalizedGestureYFallback,
 			isDismissingFallback,
+			bounds,
 		],
 	);
 

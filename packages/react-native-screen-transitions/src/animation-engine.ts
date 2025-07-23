@@ -11,10 +11,17 @@ import { animate } from "./utils/animate";
 
 type ScreenKey = string;
 
-export const animationValues: Record<
-	string,
-	Record<ScreenKey, SharedValue<number>>
-> = {
+type AnimationValues = {
+	screenProgress: Record<ScreenKey, SharedValue<number>>;
+	gestureX: Record<ScreenKey, SharedValue<number>>;
+	gestureY: Record<ScreenKey, SharedValue<number>>;
+	normalizedGestureX: Record<ScreenKey, SharedValue<number>>;
+	normalizedGestureY: Record<ScreenKey, SharedValue<number>>;
+	gestureDragging: Record<ScreenKey, SharedValue<number>>;
+	isDismissing: Record<ScreenKey, SharedValue<number>>;
+};
+
+export const animationValues: AnimationValues = {
 	screenProgress: {},
 	gestureX: {},
 	gestureY: {},
@@ -75,7 +82,11 @@ ScreenStore.use.subscribeWithSelector(
 		 */
 		for (const removedKey of removedKeys) {
 			for (const value of animatableValues) {
-				cancelAnimation(value[removedKey]);
+				// Cancel animation for number values
+				if (typeof value[removedKey] === "number") {
+					cancelAnimation(value[removedKey]);
+				}
+
 				delete value[removedKey];
 			}
 		}
