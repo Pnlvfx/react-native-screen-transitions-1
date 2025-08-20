@@ -15,7 +15,6 @@
 	"react-native": "src/index",
 	"scripts": {
 		"build": "bob build",
-		"prepack": "yarn build",
 		"lint": "biome check ./src",
 		"prepublishOnly": "bun run build"
 	},
